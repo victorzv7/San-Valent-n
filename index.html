@@ -11,19 +11,24 @@
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            overflow: hidden;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
         }
         .container {
-            margin-top: 5%;
             animation: fadeIn 2s;
+            max-width: 90%;
         }
         h1 {
             color: #e60073;
-            font-size: 2.5em;
+            font-size: 2em;
         }
         .btn {
-            padding: 15px 30px;
-            font-size: 20px;
+            padding: 12px 25px;
+            font-size: 18px;
             margin: 10px;
             border: none;
             cursor: pointer;
@@ -46,7 +51,7 @@
             animation: fadeIn 2s;
         }
         .celebration img {
-            width: 300px;
+            width: 80%;
             height: auto;
         }
         .heart {
@@ -58,21 +63,14 @@
         .message {
             display: none;
             background-color: rgba(255, 255, 255, 0.9);
-            padding: 20px;
+            padding: 15px;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-            margin: 20px auto;
-            width: 60%;
+            margin: 10px auto;
+            width: 85%;
             text-align: center;
-            font-size: 1.5em;
+            font-size: 1.2em;
             animation: fadeIn 3s;
-        }
-        .fireworks {
-            position: fixed;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            display: none;
         }
         @keyframes fadeIn {
             from { opacity: 0; }
@@ -88,7 +86,7 @@
 <body>
     <div class="container">
         <h1>💖 Corazón, es nuestro primer San Valentín 💖</h1>
-        <img src="https://i.imgur.com/QFq5d6l.jpeg" alt="Nuestra Foto Juntos" id="couplePhoto" style="width: 300px; height: auto; border-radius: 10px;">
+        <img src="https://i.imgur.com/QFq5d6l.jpeg" alt="Nuestra Foto Juntos" id="couplePhoto" style="width: 80%; height: auto; border-radius: 10px;">
         <p>¿Quieres ser mi San Valentín? ❤️</p>
         <button class="btn yes" onclick="aceptar()">Sí 😍</button>
         <button class="btn no" id="noBtn" onmouseover="moverNo()">No 😭</button>
@@ -100,26 +98,30 @@
         <p>Este es solo el comienzo de muchos San Valentines juntos 💖</p>
         <div class="message" id="message">
             💕 **Mi corazón, gracias por ser parte de mi vida.** 💕<br>
-            Princesa, eres muy importante para mí, y tenerte a mi lado me hace muy feliz. Este es solo un pequeño detalle para demostrarte cuánto te amo y cuánto significas para mí. 😍
+            Eres demasiado importante para mí, y tenerte a mi lado me hace muy feliz. Este es solo un pequeño detalle para demostrarte cuánto te amo y cuánto significas para mí. 😍
         </div>
     </div>
     
-    <canvas class="fireworks" id="fireworks"></canvas>
-    
     <script>
+        let intentosNo = 0;
         function aceptar() {
             document.querySelector('.container').style.display = 'none';
             document.getElementById("celebration").style.display = "block";
             document.getElementById("message").style.display = "block";
             lanzarCorazones();
-            lanzarFuegosArtificiales();
         }
         
         function moverNo() {
-            let x = Math.random() * (window.innerWidth - 100);
-            let y = Math.random() * (window.innerHeight - 50);
-            document.getElementById("noBtn").style.left = `${x}px`;
-            document.getElementById("noBtn").style.top = `${y}px`;
+            if (intentosNo < 5) {
+                let x = Math.random() * (window.innerWidth - 100);
+                let y = Math.random() * (window.innerHeight - 50);
+                document.getElementById("noBtn").style.left = `${x}px`;
+                document.getElementById("noBtn").style.top = `${y}px`;
+                intentosNo++;
+            } else {
+                document.getElementById("noBtn").innerText = "Demasiado tarde 😘";
+                document.getElementById("noBtn").disabled = true;
+            }
         }
         
         function lanzarCorazones() {
@@ -132,23 +134,6 @@
                 heart.style.top = Math.random() * window.innerHeight + "px";
                 heart.style.animationDuration = Math.random() * 2 + 3 + "s";
                 setTimeout(() => heart.remove(), 5000);
-            }
-        }
-        
-        function lanzarFuegosArtificiales() {
-            let canvas = document.getElementById("fireworks");
-            let ctx = canvas.getContext("2d");
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-            canvas.style.display = "block";
-            
-            for (let i = 0; i < 100; i++) {
-                setTimeout(() => {
-                    ctx.fillStyle = `hsl(${Math.random() * 360}, 100%, 50%)`;
-                    ctx.beginPath();
-                    ctx.arc(Math.random() * canvas.width, Math.random() * canvas.height, Math.random() * 10 + 2, 0, Math.PI * 2);
-                    ctx.fill();
-                }, i * 50);
             }
         }
     </script>
