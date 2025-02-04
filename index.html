@@ -11,9 +11,11 @@
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
+            overflow: hidden;
         }
         .container {
             margin-top: 5%;
+            animation: fadeIn 2s;
         }
         h1 {
             color: #e60073;
@@ -41,10 +43,26 @@
             display: none;
             text-align: center;
             margin-top: 50px;
+            animation: fadeIn 2s;
         }
         .celebration img {
             width: 300px;
             height: auto;
+        }
+        .heart {
+            position: absolute;
+            font-size: 24px;
+            color: red;
+            animation: float 5s infinite;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes float {
+            0% { transform: translateY(0); opacity: 1; }
+            50% { transform: translateY(-100px); opacity: 0.5; }
+            100% { transform: translateY(0); opacity: 0; }
         }
     </style>
 </head>
@@ -58,15 +76,16 @@
     </div>
 
     <div class="celebration" id="celebration">
-        <h1>🎉 ¡Sí, mis ojitos! Celebremos nuestro amor 🎉</h1>
+        <h1>🎉 ¡Sí, mi amor! Celebremos nuestro amor 🎉</h1>
         <img src="https://media.giphy.com/media/3o7abldj0b3rxrZUxW/giphy.gif" alt="Fiesta Romántica">
-        <p>Este es solo el comienzo de muchos San Valentines juntos princesa💖</p>
+        <p>Este es solo el comienzo de muchos San Valentines juntos 💖</p>
     </div>
 
     <script>
         function aceptar() {
             document.querySelector('.container').style.display = 'none';
             document.getElementById("celebration").style.display = "block";
+            lanzarCorazones();
         }
         
         function moverNo() {
@@ -74,6 +93,19 @@
             let y = Math.random() * (window.innerHeight - 50);
             document.getElementById("noBtn").style.left = `${x}px`;
             document.getElementById("noBtn").style.top = `${y}px`;
+        }
+        
+        function lanzarCorazones() {
+            for (let i = 0; i < 20; i++) {
+                let heart = document.createElement("div");
+                heart.innerHTML = "❤️";
+                heart.classList.add("heart");
+                document.body.appendChild(heart);
+                heart.style.left = Math.random() * window.innerWidth + "px";
+                heart.style.top = Math.random() * window.innerHeight + "px";
+                heart.style.animationDuration = Math.random() * 2 + 3 + "s";
+                setTimeout(() => heart.remove(), 5000);
+            }
         }
     </script>
 </body>
