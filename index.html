@@ -55,6 +55,18 @@
             color: red;
             animation: float 5s infinite;
         }
+        .message {
+            display: none;
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            margin: 20px auto;
+            width: 60%;
+            text-align: center;
+            font-size: 1.5em;
+            animation: fadeIn 3s;
+        }
         @keyframes fadeIn {
             from { opacity: 0; }
             to { opacity: 1; }
@@ -69,7 +81,7 @@
 <body>
     <div class="container">
         <h1>💖 Corazón, es nuestro primer San Valentín 💖</h1>
-        <img src="https://i.imgur.com/QFq5d6l.jpeg" alt="Nuestra Foto Juntos" id="couplePhoto" style="width: 300px; height: auto;">
+        <img src="https://i.imgur.com/QFq5d6l.jpeg" alt="Nuestra Foto Juntos" id="couplePhoto" style="width: 300px; height: auto; border-radius: 10px;">
         <p>¿Quieres ser mi San Valentín? ❤️</p>
         <button class="btn yes" onclick="aceptar()">Sí 😍</button>
         <button class="btn no" id="noBtn" onmouseover="moverNo()">No 😭</button>
@@ -79,12 +91,17 @@
         <h1>🎉 ¡Sí, mi amor! Celebremos nuestro amor 🎉</h1>
         <img src="https://media.giphy.com/media/3o7abldj0b3rxrZUxW/giphy.gif" alt="Fiesta Romántica">
         <p>Este es solo el comienzo de muchos San Valentines juntos 💖</p>
+        <div class="message" id="message">
+            💕 **Mi amor, gracias por ser parte de mi vida.** 💕<br>
+            Corazón significas mucho para mí, y tenerte a mi lado me hace muy feliz. Este es solo un pequeño detalle para demostrarte cuánto te amo y cuánto significas para mí. 😍
+        </div>
     </div>
 
     <script>
         function aceptar() {
             document.querySelector('.container').style.display = 'none';
             document.getElementById("celebration").style.display = "block";
+            document.getElementById("message").style.display = "block";
             lanzarCorazones();
         }
         
