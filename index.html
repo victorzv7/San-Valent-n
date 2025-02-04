@@ -67,6 +67,13 @@
             font-size: 1.5em;
             animation: fadeIn 3s;
         }
+        .fireworks {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            display: none;
+        }
         @keyframes fadeIn {
             from { opacity: 0; }
             to { opacity: 1; }
@@ -92,17 +99,20 @@
         <img src="https://media.giphy.com/media/3o7abldj0b3rxrZUxW/giphy.gif" alt="Fiesta Romántica">
         <p>Este es solo el comienzo de muchos San Valentines juntos 💖</p>
         <div class="message" id="message">
-            💕 **Princesa, gracias por ser parte de mi vida.** 💕<br>
-            Corazón significas mucho para mí, y tenerte a mi lado me hace muy feliz. Este es solo un pequeño detalle para demostrarte cuánto te amo y cuánto significas para mí. 😍
+            💕 **Mi corazón, gracias por ser parte de mi vida.** 💕<br>
+            Princesa, eres muy importante para mí, y tenerte a mi lado me hace muy feliz. Este es solo un pequeño detalle para demostrarte cuánto te amo y cuánto significas para mí. 😍
         </div>
     </div>
-
+    
+    <canvas class="fireworks" id="fireworks"></canvas>
+    
     <script>
         function aceptar() {
             document.querySelector('.container').style.display = 'none';
             document.getElementById("celebration").style.display = "block";
             document.getElementById("message").style.display = "block";
             lanzarCorazones();
+            lanzarFuegosArtificiales();
         }
         
         function moverNo() {
@@ -122,6 +132,23 @@
                 heart.style.top = Math.random() * window.innerHeight + "px";
                 heart.style.animationDuration = Math.random() * 2 + 3 + "s";
                 setTimeout(() => heart.remove(), 5000);
+            }
+        }
+        
+        function lanzarFuegosArtificiales() {
+            let canvas = document.getElementById("fireworks");
+            let ctx = canvas.getContext("2d");
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            canvas.style.display = "block";
+            
+            for (let i = 0; i < 100; i++) {
+                setTimeout(() => {
+                    ctx.fillStyle = `hsl(${Math.random() * 360}, 100%, 50%)`;
+                    ctx.beginPath();
+                    ctx.arc(Math.random() * canvas.width, Math.random() * canvas.height, Math.random() * 10 + 2, 0, Math.PI * 2);
+                    ctx.fill();
+                }, i * 50);
             }
         }
     </script>
